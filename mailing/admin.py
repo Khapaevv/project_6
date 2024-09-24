@@ -1,3 +1,10 @@
 from django.contrib import admin
+from mailing.models import Client
 
-# Register your models here.
+
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
+    list_display = ('id', 'email')
+    list_filter = ('email',)
+    verbose_name = 'Клиенты'
+
