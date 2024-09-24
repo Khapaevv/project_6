@@ -15,9 +15,7 @@
                     <div class="card shadow-sm">
                         <img src="{{ product.image | media_filter }}">
                         <div class="card-body">
-                            <p class="card-text">{{ client.name }}</p>
-                            <p class="card-text">{{ client.email | truncatechars:100 }}</p>
-                            <p class="card-text">comment: {{ client.comment }}</p>
+                            <p class="card-text">{{ object.name }}</p>
                             <div class="btn-group">
                                 <a class="btn btn-sm btn-outline-secondary" href="{% url 'mailing:client_detail' client.pk %}"
                                 role="button">Подробно</a>
