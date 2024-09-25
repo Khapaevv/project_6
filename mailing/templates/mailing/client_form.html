@@ -6,9 +6,9 @@
             <div class="col-6">
                 <div class="card">
                     {% if object %}
-                    <p class='card-text'>Редактирование clienta</p>
+                    <p class='card-text'>Редактирование клиента</p>
                     {% else %}
-                    <p class='card-text'>Создание clienta</p>
+                    <p class='card-text'>Создание клиента</p>
                     {% endif %}
                     <div class="card-body">
                         {% csrf_token %}
@@ -25,22 +25,6 @@
                     </div>
                 </div>
             </div>
-            {% if object %}
-            <div class="col-6">
-                <div class="card">
-                    <p class='card-text'>Создание версии</p>
-                    <div class="card-body">
-                        {{ formset.management_form }}
-                        {% for form in formset.forms %}
-                        {{ form.as_p }}
-                        {% if not forloop.last %}
-                        <hr>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            {% endif %}
         </form>
     </div>
 {% endblock %}

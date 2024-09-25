@@ -6,10 +6,14 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="{{ product.image | media_filter }}">
                         <div class="card-body">
-                            <p class="card-text">{{ object.message.message_theme }}</p>
-                            <a class="btn btn-primary" href="{% url 'mailing:client_list' %}" role="button">Назад</a>
+                            <p class="text-start">Текст рассылки: {{ mailing.message | slice:100 }}</p>
+                            <p class="text-start">Дата и время начала рассылки: {{ mailing.first_date }}</p>
+                            <p class="text-start">Дата и время следующей отправки рассылки: {{ mailing.next_date }}</p>
+                            <p class="text-start">Дата и время окончания рассылки: {{ mailing.last_date }}</p>
+                            <p class="text-start">Периодичность рассылки: {{ mailing.intervals }}</p>
+                            <p class="text-start">Статус рассылки: {{ mailing.mailing_status }}</p>
+                            <a class="btn btn-primary" href="{% url 'mailing:mailing_list' %}" role="button">Назад</a>
                         </div>
                     </div>
                 </div>

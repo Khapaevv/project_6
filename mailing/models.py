@@ -65,7 +65,7 @@ class Mailing(models.Model):
         **NULLABLE,
     )
     intervals = models.CharField(
-        max_length=10,
+        max_length=50,
         choices=PERIODICITY_CHOICES,
         verbose_name="Периодичность",
         **NULLABLE,
@@ -85,6 +85,7 @@ class Mailing(models.Model):
     clients = models.ManyToManyField(
         Client, verbose_name="Клиенты", related_name="mailings"
     )
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f'Рассылка "{self.message}"'
@@ -96,17 +97,21 @@ class Mailing(models.Model):
 
 
 class MailingLog(models.Model):
+    SUCCESS = "success"
+    FAIL = "fail"
+    STATUSES = [(SUCCESS, "success"), (FAIL, "fail")]
+
     last_mailing = models.DateTimeField(
         verbose_name="Дата и время последней попытки", **NULLABLE
     )
-    status_mailing = models.BooleanField(verbose_name="Статус попытки", default=True)
+    status_mailing = models.CharField(choices=STATUSES, default=SUCCESS, verbose_name="Статус попытки")
     mail_response = models.TextField(verbose_name="Ответ почтового сервера", **NULLABLE)
     mailing = models.ForeignKey(
         Mailing, on_delete=models.CASCADE, verbose_name="Рассылка", related_name="logs"
     )
 
     def __str__(self):
-        return f'Попытка рассылки "{self.mailing.pk}"'
+        return f'Попытка рассылки "{self.status_mailing}"'
 
     class Meta:
         verbose_name = "Попытка рассылки"

@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'mailing/base.html' %}
+{% load my_tags %}
+{% block content %}
+<section class="py-5 text-center container">
+    <div class="row lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Список сообщений</h1>
+        </div>
+    </div>
+</section>
+<div class="col-6 mb-5">
+    {% if user.is_authenticated %}
+    <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:message_create' %}">Создать сообщение</a>
+    {% endif %}
+</div>
+<div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for messages in object_list %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <p class="text-start">Тема сообщения: {{ messages.message_theme }}</p>
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary" href="{% url 'mailing:message_detail' messages.pk %}"
+                                role="button">Подробно</a>
+                                <a class="btn btn-sm btn-outline-secondary" href="{% url 'mailing:message_update' messages.pk %}"
+                                role="button">Изменить</a>
+                                <a class="btn btn-sm btn-outline-danger" href="{% url 'mailing:message_delete' messages.pk %}"
+                                role="button">Удалить</a>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

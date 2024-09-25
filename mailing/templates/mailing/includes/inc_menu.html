@@ -6,6 +6,13 @@
                 <h4>О нас</h4>
                 <p class="text-body-secondary">Проект рассылки</p>
             </div>
+             <div class="col-sm-4 offset-md-1 py-4">
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'mailing:client_list' %}" class="text-white">Клиенты</a></li>
+                    <li><a href="{% url 'mailing:mailing_list' %}" class="text-white">Рассылки</a></li>
+                    <li><a href="{% url 'mailing:message_list' %}" class="text-white">Сообщения рассылок</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

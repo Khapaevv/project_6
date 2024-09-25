@@ -1,23 +1,28 @@
 {% extends 'mailing/base.html' %}
 {% load my_tags %}
 {% block content %}
+<section class="py-5 text-center container">
+    <div class="row lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Список клиентов</h1>
+        </div>
+    </div>
+</section>
 <div class="col-6 mb-5">
     {% if user.is_authenticated %}
     <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:client_create' %}">Создать клиента</a>
     {% endif %}
 </div>
-
 <div class="album py-5 bg-body-tertiary">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 {% for client in object_list %}
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="{{ product.image | media_filter }}">
                         <div class="card-body">
                             <p class="card-text">{{ client.name }}</p>
-                            <p class="card-text">{{ client.email | truncatechars:100 }}</p>
-                            <p class="card-text">comment: {{ client.comment }}</p>
+                            <p class="card-text">{{ client.email }}</p>
+                            <p class="card-text">comment: {{ client.comment | truncatechars:100 }}</p>
                             <div class="btn-group">
                                 <a class="btn btn-sm btn-outline-secondary" href="{% url 'mailing:client_detail' client.pk %}"
                                 role="button">Подробно</a>

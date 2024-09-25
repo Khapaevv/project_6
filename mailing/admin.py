@@ -17,7 +17,7 @@ class MessageAdmin(admin.ModelAdmin):
 
 @admin.register(Mailing)
 class MailingAdmin(admin.ModelAdmin):
-    list_display = ("id", "first_date", "next_date", "last_date", "clients", "intervals", "mailing_status")
+    list_display = ("id", "message", "intervals", "mailing_status", "is_active")
     list_filter = ("clients", "intervals", "mailing_status")
     search_fields = ("clients", "intervals", "mailing_status")
 
@@ -26,6 +26,6 @@ class MailingAdmin(admin.ModelAdmin):
 class MailingLogAdmin(admin.ModelAdmin):
     list_display = ("id", "last_mailing", "status_mailing", "mail_response", "mailing")
     list_filter = ("last_mailing", "status_mailing")
-    search_fields = ("status_mailing")
+    search_fields = ("status_mailing",)
 
 

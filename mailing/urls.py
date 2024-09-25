@@ -40,11 +40,11 @@ urlpatterns = [
 
     path("mailings_list", MailingListView.as_view(), name="mailing_list"),
     path("mailing/<int:pk>/", MailingDetailView.as_view(), name="mailing_detail"),
-    path("mailing_create/", MailingCreateView.as_view(), name="mailing_create"),
+    path("mailings_create/", MailingCreateView.as_view(), name="mailing_create"),
     path(
-        "mailing_update/<int:pk>/", MailingUpdateView.as_view(), name="mailing_update"
+        "mailings_update/<int:pk>/", MailingUpdateView.as_view(), name="mailing_update"
     ),
     path(
-        "mailing_delete/<int:pk>/", MailingDeleteView.as_view(), name="mailing_delete"
+        "mailings_delete/<int:pk>/", MailingDeleteView.as_view(), name="mailing_delete"
     ),
 ]
