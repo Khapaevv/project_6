@@ -1,0 +1,39 @@
+{% extends 'mailing/base.html' %}
+{% load my_tags %}
+{% block content %}
+<section class="py-5 text-center container">
+    <div class="row lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Список рассылок</h1>
+        </div>
+    </div>
+</section>
+<div class="col-6 mb-5">
+    {% if user.is_authenticated %}
+    <a class="p-2 btn btn-outline-primary" href="{% url 'mailing:mailing_create' %}">Создать рассылку</a>
+    {% endif %}
+</div>
+<div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for mailing in object_list %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <p class="text-start">Тема рассылки: {{ mailing.message | slice:100 }}</p>
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary" href="{% url 'mailing:mailing_detail' mailing.pk %}"
+                                role="button">Подробно</a>
+                                <a class="btn btn-sm btn-outline-secondary" href="{% url 'mailing:mailing_update' mailing.pk %}"
+                                role="button">Изменить</a>
+                                <a class="btn btn-sm btn-outline-danger" href="{% url 'mailing:mailing_delete' mailing.pk %}"
+                                role="button">Удалить</a>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
