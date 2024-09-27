@@ -3,23 +3,11 @@ from django.utils import timezone
 
 NULLABLE = {"blank": True, "null": True}
 
-PERIODICITY_CHOICES = [
-    ("daily", "Ежедневно"),
-    ("weekly", "Еженедельно"),
-    ("monthly", "Ежемесячно"),
-]
-
-STATUS_CHOICES = [
-    ("created", "Создана"),
-    ("started", "Запущена"),
-    ("completed", "Завершена"),
-]
-
-
 class Client(models.Model):
     name = models.CharField(max_length=150, verbose_name="Клиент")
     email = models.EmailField(verbose_name="Email", unique=True)
     comment = models.TextField(verbose_name="Комментарий", **NULLABLE)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Клиент"
@@ -50,6 +38,27 @@ class Message(models.Model):
 
 
 class Mailing(models.Model):
+
+    DAYLY = "Раз в день"
+    WEEKLY = "Раз в неделю"
+    MONTHLY = "Раз в месяц"
+
+    PERIODICITY_CHOICES = [
+        (DAYLY, "Раз в день"),
+        (WEEKLY, "Раз в неделю"),
+        (MONTHLY, "Раз в месяц"),
+    ]
+
+    CREATED = 'Создана'
+    STARTED = 'Запущена'
+    COMPLETED = 'Завершена'
+
+    STATUS_CHOICES = [
+        (CREATED, "Создана"),
+        (STARTED, "Запущена"),
+        (COMPLETED, "Завершена"),
+    ]
+
     first_date = models.DateTimeField(
         default=timezone.now,
         verbose_name="Дата и время начала рассылки",
@@ -102,6 +111,7 @@ class MailingLog(models.Model):
     STATUSES = [(SUCCESS, "success"), (FAIL, "fail")]
 
     last_mailing = models.DateTimeField(
+        auto_now_add=True,
         verbose_name="Дата и время последней попытки", **NULLABLE
     )
     status_mailing = models.CharField(choices=STATUSES, default=SUCCESS, verbose_name="Статус попытки")

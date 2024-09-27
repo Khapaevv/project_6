@@ -143,6 +143,19 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-crontab"
+version = "0.7.1"
+description = "dead simple crontab powered job scheduling for django"
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-crontab-0.7.1.tar.gz", hash = "sha256:1201810a212460aaaa48eb6a766738740daf42c1a4f6aafecfb1525036929236"},
+]
+
+[package.dependencies]
+Django = ">=1.8"
+
+[[package]]
 name = "executing"
 version = "2.1.0"
 description = "Get the currently executing AST node of a frame, and other information"
@@ -658,4 +671,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12.6"
-content-hash = "d6cf149342ace04e9328bacdf89d21bf7bb00c400dbd09c219bf17c9dedc041a"
+content-hash = "e0c9889c2afd2bd405252df0da23cffec9ca696d2bf821a9284a24835502bb72"
