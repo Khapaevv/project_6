@@ -65,9 +65,6 @@ class Mailing(models.Model):
         help_text="Введите дату и время начала рассылки",
         **NULLABLE,
     )
-    next_date = models.DateTimeField(
-        verbose_name="Дата и время следующей отправки рассылки", **NULLABLE
-    )
     last_date = models.DateTimeField(
         verbose_name="Дата и время окончания рассылки",
         help_text="Введите дату и время окончания рассылки",
