@@ -25,8 +25,8 @@ def send_mailing():
                         subject=mailing.message.message_theme,
                         message=mailing.message.message_body,
                         from_email=settings.EMAIL_HOST_USER,
-                        recipient_list=[khapaev@mail.ru
-                            # client.email for client in clients
+                        recipient_list=[
+                            client.email for client in clients
                         ],
                         fail_silently=False
                     )
