@@ -1,11 +1,14 @@
 from datetime import timezone
 from smtplib import SMTPException
+
 from django.core.mail import send_mail
+
 from config import settings
 from mailing.models import Mailing, MailingLog
 
 
 def send_mailing():
+
     current_time = timezone.localtime(timezone.now())
 
     mailings = Mailing.objects.filter(is_active=True)
@@ -23,14 +26,17 @@ def send_mailing():
                         subject=mailing.message.message_theme,
                         message=mailing.message.message_body,
                         from_email=settings.EMAIL_HOST_USER,
-                        recipient_list=[client.email for client in mailing.client.filter(is_active=True)],
+                        recipient_list=[
+                            client.email
+                            for client in mailing.client.filter(is_active=True)
+                        ],
                         # fail_silently=False
                     )
                     log = MailingLog.objects.create(
                         last_mailing=mailing.first_date,
                         status_mailing=result,
-                        response_server='SUCCESS',
-                        mailing=mailing
+                        response_server="SUCCESS",
+                        mailing=mailing,
                     )
                     log.save()
                     return log
@@ -49,20 +55,23 @@ def send_mailing():
 
 
 def daily_mailings():
-    mailings = Mailing.objects.filter(intervals="Раз в день")
+    mailings = Mailing.objects.filter(intervals="Раз в день", mailing_status="Запущена")
     print(mailings)
     if mailings.exists():
         send_mailing()
 
 
-
 def weekly_mailings():
-    mailings = Mailing.objects.filter(intervals="Раз в неделю", mailing_status="Запущена")
+    mailings = Mailing.objects.filter(
+        intervals="Раз в неделю", mailing_status="Запущена"
+    )
     if mailings.exists():
         send_mailing()
 
 
 def monthly_mailings():
-    mailings = Mailing.objects.filter(intervals="Раз в месяц", mailing_status="Запущена")
+    mailings = Mailing.objects.filter(
+        intervals="Раз в месяц", mailing_status="Запущена"
+    )
     if mailings.exists():
         send_mailing()

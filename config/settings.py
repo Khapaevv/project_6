@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
-from dotenv import load_dotenv
 
+from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
@@ -23,9 +23,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "mailing",
-
     "django_crontab",
 ]
 
@@ -133,7 +131,7 @@ if CACHE_ENABLED:
     }
 
 CRONJOBS = [
-    ('0 12 * * *', 'mailing.cron.daily_mailings'),
-    ('0 12 * * 1', 'mailing.cron.weekly_mailings'),
-    ('0 12 1 * *', 'mailing.cron.monthly_mailings'),
+    ("0 12 * * *", "mailing.cron.daily_mailings"),
+    ("0 12 * * 1", "mailing.cron.weekly_mailings"),
+    ("0 12 1 * *", "mailing.cron.monthly_mailings"),
 ]

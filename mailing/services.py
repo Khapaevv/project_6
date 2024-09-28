@@ -1,12 +1,12 @@
 from django.core.cache import cache
 
 from config import settings
-from mailing.models import Mailing, Client
+from mailing.models import Client, Mailing
 
 
 def get_cached_main():
     if settings.CACHE_ENABLED:
-        key = 'mailing_list'
+        key = "mailing_list"
         mailing_list = cache.get(key)
         if mailing_list is None:
             mailing_list = Mailing.objects.all()
@@ -19,7 +19,7 @@ def get_cached_main():
 
 def get_cached_client():
     if settings.CACHE_ENABLED:
-        key = 'client_list'
+        key = "client_list"
         client_list = cache.get(key)
         if client_list is None:
             client_list = Client.objects.all()
@@ -32,7 +32,7 @@ def get_cached_client():
 
 def get_cached_mailing():
     if settings.CACHE_ENABLED:
-        key = 'mailing_list'
+        key = "mailing_list"
         mailing_list = cache.get(key)
         if mailing_list is None:
             mailing_list = Mailing.objects.all()
@@ -45,7 +45,7 @@ def get_cached_mailing():
 
 def get_cached_log():
     if settings.CACHE_ENABLED:
-        key = 'mailing_log'
+        key = "mailing_log"
         mailing_log = cache.get(key)
         if mailing_log is None:
             mailing_log = Log.objects.all()

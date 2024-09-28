@@ -3,6 +3,7 @@ from django.utils import timezone
 
 NULLABLE = {"blank": True, "null": True}
 
+
 class Client(models.Model):
     name = models.CharField(max_length=150, verbose_name="Клиент")
     email = models.EmailField(verbose_name="Email", unique=True)
@@ -49,9 +50,9 @@ class Mailing(models.Model):
         (MONTHLY, "Раз в месяц"),
     ]
 
-    CREATED = 'Создана'
-    STARTED = 'Запущена'
-    COMPLETED = 'Завершена'
+    CREATED = "Создана"
+    STARTED = "Запущена"
+    COMPLETED = "Завершена"
 
     STATUS_CHOICES = [
         (CREATED, "Создана"),
@@ -108,10 +109,11 @@ class MailingLog(models.Model):
     STATUSES = [(SUCCESS, "success"), (FAIL, "fail")]
 
     last_mailing = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Дата и время последней попытки", **NULLABLE
+        auto_now_add=True, verbose_name="Дата и время последней попытки", **NULLABLE
     )
-    status_mailing = models.CharField(choices=STATUSES, default=SUCCESS, verbose_name="Статус попытки")
+    status_mailing = models.CharField(
+        choices=STATUSES, default=SUCCESS, verbose_name="Статус попытки"
+    )
     mail_response = models.TextField(verbose_name="Ответ почтового сервера", **NULLABLE)
     mailing = models.ForeignKey(
         Mailing, on_delete=models.CASCADE, verbose_name="Рассылка", related_name="logs"

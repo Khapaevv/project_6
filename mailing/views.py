@@ -1,14 +1,14 @@
 from django.urls import reverse_lazy
 from django.views.generic import (
-    ListView,
-    DetailView,
     CreateView,
     DeleteView,
+    DetailView,
+    ListView,
     UpdateView,
 )
 
-from mailing.form import ClientForm, MessageForm, MailingForm
-from mailing.models import Client, Message, Mailing
+from mailing.form import ClientForm, MailingForm, MessageForm
+from mailing.models import Client, Mailing, Message
 
 
 class ClientListView(ListView):

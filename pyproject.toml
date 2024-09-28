@@ -17,6 +17,7 @@ crontab = "^1.0.1"
 pillow = "^10.4.0"
 python-dotenv = "^1.0.1"
 django-crontab = "^0.7.1"
+isort = "^5.13.2"
 
 
 [build-system]
