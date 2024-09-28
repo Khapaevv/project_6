@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 
 NULLABLE = {"blank": True, "null": True}
 
@@ -61,41 +60,39 @@ class Mailing(models.Model):
     ]
 
     first_date = models.DateTimeField(
-        default=timezone.now,
         verbose_name="Дата и время начала рассылки",
         help_text="Введите дату и время начала рассылки",
-        **NULLABLE,
     )
     last_date = models.DateTimeField(
         verbose_name="Дата и время окончания рассылки",
         help_text="Введите дату и время окончания рассылки",
-        **NULLABLE,
     )
     intervals = models.CharField(
         max_length=50,
         choices=PERIODICITY_CHOICES,
         verbose_name="Периодичность",
-        **NULLABLE,
+        **NULLABLE
     )
     mailing_status = models.CharField(
         max_length=50,
         choices=STATUS_CHOICES,
-        default="created",
+        default=CREATED,
         verbose_name="Статус рассылки",
     )
     message = models.OneToOneField(
         Message,
         on_delete=models.CASCADE,
         verbose_name="Сообщение",
-        related_name="mailings",
     )
     clients = models.ManyToManyField(
-        Client, verbose_name="Клиенты", related_name="mailings"
+        Client, verbose_name="Клиенты",
     )
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'Рассылка "{self.message}"'
+        return (f'Рассылка  {self.first_date} - {self.last_date} periodicity: {self.intervals}, status: {self.mailing_status}'
+                
+                f'"{self.message}"')
 
     class Meta:
         verbose_name = "Рассылка"
@@ -104,25 +101,20 @@ class Mailing(models.Model):
 
 
 class MailingLog(models.Model):
-    SUCCESS = "success"
-    FAIL = "fail"
-    STATUSES = [(SUCCESS, "success"), (FAIL, "fail")]
 
     last_mailing = models.DateTimeField(
-        auto_now_add=True, verbose_name="Дата и время последней попытки", **NULLABLE
-    )
-    status_mailing = models.CharField(
-        choices=STATUSES, default=SUCCESS, verbose_name="Статус попытки"
-    )
+        auto_now_add=True, verbose_name="Дата и время последней попытки")
+    status_mailing = models.BooleanField(verbose_name='статус попытки')
     mail_response = models.TextField(verbose_name="Ответ почтового сервера", **NULLABLE)
     mailing = models.ForeignKey(
-        Mailing, on_delete=models.CASCADE, verbose_name="Рассылка", related_name="logs"
-    )
+        Mailing, on_delete=models.CASCADE, verbose_name="Рассылка", related_name="logs", **NULLABLE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='клиент рассылки', **NULLABLE)
+
 
     def __str__(self):
         return f'Попытка рассылки "{self.status_mailing}"'
 
     class Meta:
-        verbose_name = "Попытка рассылки"
-        verbose_name_plural = "Попытки рассылки"
+        verbose_name = "Лог"
+        verbose_name_plural = "Логи"
         ordering = ("status_mailing",)

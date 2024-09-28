@@ -1,11 +1,6 @@
 from django.urls import reverse_lazy
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    DetailView,
-    ListView,
-    UpdateView,
-)
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
 from mailing.form import ClientForm, MailingForm, MessageForm
 from mailing.models import Client, Mailing, Message

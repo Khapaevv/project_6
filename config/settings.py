@@ -131,6 +131,7 @@ if CACHE_ENABLED:
     }
 
 CRONJOBS = [
+    # ("1 * * * *", "mailing.cron.daily_mailings"),
     ("0 12 * * *", "mailing.cron.daily_mailings"),
     ("0 12 * * 1", "mailing.cron.weekly_mailings"),
     ("0 12 1 * *", "mailing.cron.monthly_mailings"),
