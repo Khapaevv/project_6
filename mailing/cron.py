@@ -1,4 +1,3 @@
-# from datetime import timezone, datetime
 from smtplib import SMTPException
 from django.core.mail import send_mail
 from config import settings
@@ -9,8 +8,6 @@ from django.utils import timezone
 def send_mailing():
 
     current_time = timezone.localtime(timezone.now())
-
-    # current_time = datetime.now()
     mailings = Mailing.objects.filter(is_active=True)
     clients = Client.objects.filter(is_active=True)
 

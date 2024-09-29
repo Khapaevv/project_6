@@ -58,12 +58,12 @@ class BlogDeleteView(DeleteView):
     success_url = reverse_lazy('blog:blog_list')
 
 
-def toggle_activity(request, pk):
+def blog_is_publication(request, pk):
     blog_item = get_object_or_404(Blog, pk=pk)
-    if blog_item.is_published:
-        blog_item.is_published = False
+    if blog_item.is_publication:
+        blog_item.is_publication = False
     else:
-        blog_item.is_published = True
+        blog_item.is_publication = True
 
     blog_item.save()
-    return redirect(reverse('blog:blog_list'))
+    return redirect(reverse("blog:list"))

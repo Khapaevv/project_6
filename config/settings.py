@@ -133,8 +133,8 @@ if CACHE_ENABLED:
     }
 
 CRONJOBS = [
-    ("52 12 * * *", "mailing.cron.daily_mailings"),
+    ("0 12 * * *", "mailing.cron.daily_mailings"),
     ("0 12 * * 1", "mailing.cron.weekly_mailings"),
     ("0 12 1 * *", "mailing.cron.monthly_mailings"),
-    ('51 12 * * *', 'django.core.management.call_command', ['start_mailing']),
+    # ('* * * * *', 'django.core.management.call_command', ['start_mailing']),
 ]
