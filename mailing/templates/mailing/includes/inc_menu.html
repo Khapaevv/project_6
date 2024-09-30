@@ -8,9 +8,17 @@
             </div>
              <div class="col-sm-4 offset-md-1 py-4">
                 <ul class="list-unstyled">
-                    <li><a href="{% url 'mailing:client_list' %}" class="text-white">Клиенты</a></li>
+                    <li><a href="{% url 'mailing:main_page' %}" class="text-white">Главная</a></li>
+                    <li><a href="{% url 'blogs:list' %}" class="text-white">Блоги</a></li>
+                    {% if user.is_authenticated %}
                     <li><a href="{% url 'mailing:mailing_list' %}" class="text-white">Рассылки</a></li>
                     <li><a href="{% url 'mailing:message_list' %}" class="text-white">Сообщения рассылок</a></li>
+                    <li><a href="{% url 'mailing:logs_list' %}" class="text-white">Отчеты об отправке</a></li>
+                    <li><a href="{% url 'users:logout' %}" class="text-white">Выход</a></li>
+                    {% else %}
+                    <li><a href="{% url 'users:login' %}" class="text-white">Вход</a></li>
+                    <li><a href="{% url 'users:registration' %}" class="text-white">Регистрация</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

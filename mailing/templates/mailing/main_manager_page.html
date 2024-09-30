@@ -1,0 +1,55 @@
+{% extends 'mailing/base.html' %}
+{% load my_tags %}
+{% block content %}
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="col-12 mb-5 text-center">
+            <a class="btn btn-secondary btn-lg button-size" href="{% url 'mailing:message_list' %}">
+                Сообщения
+            </a>
+        </div>
+        <div class="col-12 mb-5 text-center">
+            <a class="btn btn-secondary btn-lg button-size" href="{% url 'mailing:client_list' %}">
+                Клиенты
+            </a>
+        </div>
+        <div class="col-12 mb-5 text-center">
+            <a class="btn btn-secondary btn-lg button-size" href="{% url 'mailing:mailing_list' %}">
+                Рассылки
+            </a>
+        </div>
+        <div class="col-12 mb-5 text-center">
+            <a class="btn btn-secondary btn-lg button-size" href="{% url 'users:users_for_manager' %}">
+                Пользователи
+            </a>
+        </div>
+    </div>
+</div>
+<style>
+    .button-size {
+        width: 350px;
+        height: 50px;
+        display: inline-block;
+    }
+</style>
+
+<div class="col-12 mt-5">
+    <h3 class="text-center">Статьи</h3>
+    <div class="row">
+        {% for blog in random_blog %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ blog.title }}</h5>
+                    <img src="{{ blog.image | media_filter }}" class="card-img-top"
+                         style="height: 200px; width: 100%; object-fit: contain;">
+                    <p class="card-text">
+                        {{ blog.content|slice:":100" }}{% if blog.content|length > 100 %}...{% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

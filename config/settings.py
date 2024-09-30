@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
@@ -23,7 +24,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "mailing",
-    'django-crontab',
+    "users",
+    "blogs",
+    "django_crontab",
 ]
 
 MIDDLEWARE = [
@@ -105,7 +108,7 @@ MEDIA_URL = "media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-# AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = "users.User"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
@@ -130,7 +133,8 @@ if CACHE_ENABLED:
     }
 
 CRONJOBS = [
-    ('0 12 * * *', 'mailing.cron.daily_mailings'),
-    ('0 12 * * 1', 'mailing.cron.weekly_mailings'),
-    ('0 12 1 * *', 'mailing.cron.monthly_mailings'),
+    ("3 20 * * *", "mailing.cron.daily_mailings"),
+    ("0 12 * * 1", "mailing.cron.weekly_mailings"),
+    ("0 12 1 * *", "mailing.cron.monthly_mailings"),
+    # ('* * * * *', 'django.core.management.call_command', ['start_mailing']),
 ]

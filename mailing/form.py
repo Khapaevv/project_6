@@ -1,5 +1,6 @@
 from django.forms import BooleanField, ModelForm
-from mailing.models import Client, Message, Mailing, MailingLog
+
+from mailing.models import Client, Mailing, MailingLog, Message
 
 
 class StyleFormMixin:
@@ -30,3 +31,7 @@ class MailingForm(StyleFormMixin, ModelForm):
         fields = "__all__"
 
 
+class MailingManagerForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Mailing
+        fields = ("is_active",)
