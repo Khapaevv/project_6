@@ -1,19 +1,32 @@
 from django.urls import include, path
 
 from mailing.apps import MailingConfig
-from mailing.views import (ClientCreateView, ClientDeleteView,
-                           ClientDetailView, ClientListView, ClientUpdateView,
-                           MailingCreateView, MailingDeleteView,
-                           MailingDetailView, MailingListView,
-                           MailingUpdateView, MessageCreateView,
-                           MessageDeleteView, MessageDetailView,
-                           MessageListView, MessageUpdateView)
+from mailing.views import (
+    ClientCreateView,
+    ClientDeleteView,
+    ClientDetailView,
+    ClientListView,
+    ClientUpdateView,
+    MailingCreateView,
+    MailingDeleteView,
+    MailingDetailView,
+    MailingListView,
+    MailingUpdateView,
+    MainPageView,
+    MessageCreateView,
+    MessageDeleteView,
+    MessageDetailView,
+    MessageListView,
+    MessageUpdateView,
+    get_mailinglog_view,
+)
 
 app_name = MailingConfig.name
 
 
 urlpatterns = [
-    path("", ClientListView.as_view(), name="client_list"),
+    path("", MainPageView.as_view(), name="main_page"),
+    path("client_list/", ClientListView.as_view(), name="client_list"),
     path("client/<int:pk>/", ClientDetailView.as_view(), name="client_detail"),
     path("client_create/", ClientCreateView.as_view(), name="client_create"),
     path("client_update/<int:pk>/", ClientUpdateView.as_view(), name="client_update"),
@@ -29,11 +42,12 @@ urlpatterns = [
     ),
     path("mailings_list", MailingListView.as_view(), name="mailing_list"),
     path("mailing/<int:pk>/", MailingDetailView.as_view(), name="mailing_detail"),
-    path("mailings_create/", MailingCreateView.as_view(), name="mailing_create"),
+    path("mailing_create/", MailingCreateView.as_view(), name="mailing_create"),
     path(
-        "mailings_update/<int:pk>/", MailingUpdateView.as_view(), name="mailing_update"
+        "mailing_update/<int:pk>/", MailingUpdateView.as_view(), name="mailing_update"
     ),
     path(
-        "mailings_delete/<int:pk>/", MailingDeleteView.as_view(), name="mailing_delete"
+        "mailing_delete/<int:pk>/", MailingDeleteView.as_view(), name="mailing_delete"
     ),
+    path("logs_list/", get_mailinglog_view, name="logs_list"),
 ]

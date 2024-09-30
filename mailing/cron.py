@@ -1,8 +1,10 @@
 from smtplib import SMTPException
+
 from django.core.mail import send_mail
-from config import settings
-from mailing.models import Mailing, MailingLog, Client
 from django.utils import timezone
+
+from config import settings
+from mailing.models import Client, Mailing, MailingLog
 
 
 def send_mailing():
@@ -24,10 +26,8 @@ def send_mailing():
                         subject=mailing.message.message_theme,
                         message=mailing.message.message_body,
                         from_email=settings.EMAIL_HOST_USER,
-                        recipient_list=[
-                            client.email for client in clients
-                        ],
-                        fail_silently=False
+                        recipient_list=[client.email for client in clients],
+                        fail_silently=False,
                     )
                     log = MailingLog.objects.create(
                         last_mailing=mailing.first_date,

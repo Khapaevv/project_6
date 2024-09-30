@@ -3,32 +3,21 @@
 {% block content %}
 <div class="container">
     <div class="row text-center">
-        <a class="p-2 btn btn-outline-primary" href="{% url 'blog:create' %}">Создать блог</a>
-        <div class="pb-4"></div>
-        {% for object in object_list %}
-        <div class="col-4">
+        <div class="col-10">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">{{ object.title }}</h4>
+                    <h4 class="my-0 font-weight-normal">{{ object.title }} </h4>
                 </div>
                 <div class="card-body">
-                    <img class="card-img-top" src="{{ blog.image | media_filter }}" width="300" height="200">
-                    <p class="text-start">{{ object.content }}</p>
-                    <h1 class="card-title pricing-card-title"></h1>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'blog:view' object.id %}"
-                               role="button">Подробно</a>
-                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'blog:update' object.id %}"
-                               role="button">Изменить</a>
-                            <a class="btn btn-sm btn-outline-danger" href="{% url 'blog:delete' object.id %}"
-                               role="button">Удалить</a>
-                        </div>
-                    </div>
+                    <img class="card-img-top" src="{{ blog.image | media_filter }}">
+                    <p class="card-text"> Ссылка: {{ object.slug }}</p>
+                    <p class="card-text">Содержимое: {{ object.content }}</p>
+                    <p class="card-text">Дата создания: {{ object.created_at }}</p>
+                    <p class="card-text">Кол-во просмотров: {{ object.count_views }}</p>
+                    <a class="btn btn-primary" href="{% url 'blogs:list' %}" role="button">Назад</a>
                 </div>
             </div>
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock %}

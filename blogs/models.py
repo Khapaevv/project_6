@@ -1,6 +1,6 @@
 from django.db import models
-from mailing.models import NULLABLE
 
+from mailing.models import NULLABLE
 
 
 class Blog(models.Model):
@@ -30,7 +30,7 @@ class Blog(models.Model):
     )
     is_published = models.BooleanField(
         verbose_name="Опубликовано",
-        default=False,
+        default=True,
     )
     count_views = models.IntegerField(
         default=0,
@@ -41,7 +41,6 @@ class Blog(models.Model):
     class Meta:
         verbose_name = "Статья"
         verbose_name_plural = "Статьи"
-
 
     def __str__(self):
         return self.title

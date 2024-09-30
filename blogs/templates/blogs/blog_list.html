@@ -1,0 +1,44 @@
+{% extends 'mailing/base.html' %}
+{% load my_tags %}
+{% block content %}
+<section class="py-5 text-center container">
+    <div class="row lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Список блогов</h1>
+        </div>
+    </div>
+</section>
+<div class=col-4">
+    <div class="container">
+        <div class="col-6 mb-5">
+        <a class="p-2 btn btn-outline-primary" href="{% url 'blogs:create' %}">Создать блог</a>
+        <div>
+            {% for object in object_list %}
+
+            <div class="col">
+                <div class="card shadow-sm">
+                    <h5 class="card-title mt-3 mb-3"><strong>{{ object.title }}</strong></h5>
+                    <div class="card-body">
+                        <img src="{{ object.image | media_filter }}" class="card-img-top"
+                             style="height: 200px; width: 100%; object-fit: contain;">
+                        <p class="card-text">
+                            {{ object.content|slice:":100" }}{% if object.content|length > 100 %}...{% endif %}
+                        </p>
+                        </p>
+                        <p class="card-text">Просмотры: {{ object.count_views }}</p>
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'blogs:view' object.id %}"
+                               role="button">Подробно</a>
+                            <a class="btn btn-sm btn-outline-secondary" href="{% url 'blogs:update' object.id %}"
+                               role="button">Изменить</a>
+                            <a class="btn btn-sm btn-outline-danger" href="{% url 'blogs:delete' object.id %}"
+                               role="button">Удалить</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

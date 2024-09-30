@@ -29,3 +29,9 @@ class MailingForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Mailing
         fields = "__all__"
+
+
+class MailingManagerForm(StyleFormMixin, ModelForm):
+    class Meta:
+        model = Mailing
+        fields = ("is_active",)

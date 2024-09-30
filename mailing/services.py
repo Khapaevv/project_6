@@ -30,27 +30,3 @@ def get_cached_client():
     return client_list
 
 
-def get_cached_mailing():
-    if settings.CACHE_ENABLED:
-        key = "mailing_list"
-        mailing_list = cache.get(key)
-        if mailing_list is None:
-            mailing_list = Mailing.objects.all()
-            cache.set(key, mailing_list)
-    else:
-        mailing_list = Mailing.objects.all()
-
-    return mailing_list
-
-
-def get_cached_log():
-    if settings.CACHE_ENABLED:
-        key = "mailing_log"
-        mailing_log = cache.get(key)
-        if mailing_log is None:
-            mailing_log = Log.objects.all()
-            cache.set(key, mailing_log)
-    else:
-        mailing_log = Log.objects.all()
-
-    return mailing_log
