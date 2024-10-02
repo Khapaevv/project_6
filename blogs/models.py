@@ -4,6 +4,7 @@ from mailing.models import NULLABLE
 
 
 class Blog(models.Model):
+
     title = models.CharField(
         max_length=50,
         verbose_name="Заголовок",

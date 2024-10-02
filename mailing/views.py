@@ -119,20 +119,6 @@ class MailingListView(ManagerPermissionMixin, ListView):
 class MailingDetailView(DetailView):
     model = Mailing
 
-    # def post(self, request, *args, **kwargs):
-    #     mailing = self.get_object()
-    #     send_mailing(mailing)
-    #     logs = MailingLog.objects.filter(mailing=mailing).order_by("-last_mailing")
-    #
-    #     if logs:
-    #         messages.success(request, "Рассылка завершена")
-    #     else:
-    #         messages.error(
-    #             request, "Не удалось выполнить рассылку. Проверьте настройки."
-    #         )
-    #
-    #     return redirect(self.get_success_url())
-
     def get_context_data(self, **kwargs):
         mailing = self.get_object()
         context = super().get_context_data(**kwargs)
@@ -196,12 +182,6 @@ class MainPageView(TemplateView):
         context["clients_count"] = Client.objects.all().count()
         # context['user_email'] = self.request.user.email
         return context
-
-        # @cache_page(60 * 15)
-        # def get_queryset(self, *args, **kwargs):
-        #     queryset = super().get_queryset(*args, **kwargs)
-        #     queryset = queryset.order_by('?')
-        #     return queryset[:3]
 
 
 def get_mailinglog_view(request):

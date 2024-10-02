@@ -4,6 +4,7 @@ from users.models import User
 
 
 class Command(BaseCommand):
+    """Команда создания суперюзера"""
 
     def handle(self, *args, **kwargs):
         user = User.objects.create(email="admin@example.com")

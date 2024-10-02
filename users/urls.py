@@ -8,7 +8,8 @@ from users.views import (
     UserPasswordResetView,
     UserRegisterView,
     email_verification,
-    viewing_users, toggle_activity,
+    toggle_activity,
+    viewing_users,
 )
 
 app_name = UsersConfig.name
@@ -22,5 +23,5 @@ urlpatterns = [
     path("password-reset/", UserPasswordResetView.as_view(), name="password_reset"),
     path("no_mail/", NoMailView.as_view(), name="no_mail"),
     path("users/", viewing_users, name="users_for_manager"),
-    path('activity/<int:pk>/', toggle_activity, name='toggle_activity'),
+    path("activity/<int:pk>/", toggle_activity, name="toggle_activity"),
 ]
