@@ -8,6 +8,7 @@ from mailing.models import Client, Mailing, MailingLog
 
 
 def send_mailing():
+    """Команда отправки рассылок"""
 
     current_time = timezone.localtime(timezone.now())
     mailings = Mailing.objects.filter(is_active=True)
@@ -54,6 +55,7 @@ def send_mailing():
 
 
 def daily_mailings():
+    """Команда ежедневной отправки рассылок"""
     mailings = Mailing.objects.filter(intervals="Раз в день")
     print(mailings)
     if mailings.exists():
@@ -61,6 +63,7 @@ def daily_mailings():
 
 
 def weekly_mailings():
+    """Команда ежеднедельной отправки рассылок"""
     mailings = Mailing.objects.filter(
         intervals="Раз в неделю", mailing_status="Запущена"
     )
@@ -69,6 +72,7 @@ def weekly_mailings():
 
 
 def monthly_mailings():
+    """Команда ежемесячной отправки рассылок"""
     mailings = Mailing.objects.filter(
         intervals="Раз в месяц", mailing_status="Запущена"
     )

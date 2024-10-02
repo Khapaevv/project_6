@@ -6,6 +6,8 @@ NULLABLE = {"blank": True, "null": True}
 
 
 class Client(models.Model):
+    """Модель клиента, которому будут рассылаться сообщения"""
+
     name = models.CharField(max_length=150, verbose_name="Клиент")
     email = models.EmailField(verbose_name="Email", unique=True)
     comment = models.TextField(verbose_name="Комментарий", **NULLABLE)
@@ -28,6 +30,8 @@ class Client(models.Model):
 
 
 class Message(models.Model):
+    """Модель создания сообщений"""
+
     message_theme = models.CharField(
         max_length=150,
         help_text="Введите тему сообщения",
@@ -54,6 +58,7 @@ class Message(models.Model):
 
 
 class Mailing(models.Model):
+    """Модель рассылки сообщений"""
 
     DAYLY = "Раз в день"
     WEEKLY = "Раз в неделю"
@@ -129,6 +134,7 @@ class Mailing(models.Model):
 
 
 class MailingLog(models.Model):
+    """Модель отчетов по рассылкам сообщений"""
 
     last_mailing = models.DateTimeField(
         auto_now_add=True, verbose_name="Дата и время последней попытки"

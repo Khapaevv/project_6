@@ -16,6 +16,7 @@ from blogs.models import Blog
 from mailing.cron import send_mailing
 from mailing.form import ClientForm, MailingForm, MailingManagerForm, MessageForm
 from mailing.models import Client, Mailing, MailingLog, Message
+from mailing.services import get_cached_objects
 
 
 class OwnerPermissionMixin:
@@ -49,6 +50,7 @@ class ClientListView(ManagerPermissionMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["object_list"] = get_cached_objects("client_list", Client)
         context["is_manager"] = self.request.user.groups.filter(name="Manager").exists()
         return context
 
@@ -112,26 +114,11 @@ class MailingListView(ManagerPermissionMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["is_manager"] = self.request.user.groups.filter(name="Manager").exists()
-        # context['mailings'] = get_mailings_from_cache()
         return context
 
 
 class MailingDetailView(DetailView):
     model = Mailing
-
-    # def post(self, request, *args, **kwargs):
-    #     mailing = self.get_object()
-    #     send_mailing(mailing)
-    #     logs = MailingLog.objects.filter(mailing=mailing).order_by("-last_mailing")
-    #
-    #     if logs:
-    #         messages.success(request, "Рассылка завершена")
-    #     else:
-    #         messages.error(
-    #             request, "Не удалось выполнить рассылку. Проверьте настройки."
-    #         )
-    #
-    #     return redirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
         mailing = self.get_object()
@@ -188,20 +175,14 @@ class MainPageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["object_list"] = get_cached_objects("mailing_list", Mailing)
         context["random_blog"] = Blog.objects.order_by("?")[:3]
         context["mailing_count"] = Mailing.objects.all().count()
         context["active_mailing_count"] = Mailing.objects.filter(
             mailing_status=Mailing.STARTED
         ).count()
         context["clients_count"] = Client.objects.all().count()
-        # context['user_email'] = self.request.user.email
         return context
-
-        # @cache_page(60 * 15)
-        # def get_queryset(self, *args, **kwargs):
-        #     queryset = super().get_queryset(*args, **kwargs)
-        #     queryset = queryset.order_by('?')
-        #     return queryset[:3]
 
 
 def get_mailinglog_view(request):

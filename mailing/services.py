@@ -4,29 +4,23 @@ from config import settings
 from mailing.models import Client, Mailing
 
 
-def get_cached_main():
+def get_cached_objects(cache_key, model_cls):
+    """Универсальная функция для получения объектов из кэша или базы данных."""
     if settings.CACHE_ENABLED:
-        key = "mailing_list"
-        mailing_list = cache.get(key)
-        if mailing_list is None:
-            mailing_list = Mailing.objects.all()
-            cache.set(key, mailing_list)
+        cached_objects = cache.get(cache_key)
+        if cached_objects is None:
+            objects = model_cls.objects.all()
+            cache.set(cache_key, objects)
+        else:
+            objects = cached_objects
     else:
-        mailing_list = Mailing.objects.all()
+        objects = model_cls.objects.all()
 
-    return mailing_list
-
-
-def get_cached_client():
-    if settings.CACHE_ENABLED:
-        key = "client_list"
-        client_list = cache.get(key)
-        if client_list is None:
-            client_list = Client.objects.all()
-            cache.set(key, client_list)
-    else:
-        client_list = Client.objects.all()
-
-    return client_list
+    return objects
 
 
+# Get mailing list
+mailing_list = get_cached_objects("mailing_list", Mailing)
+
+# Get client list
+client_list = get_cached_objects("client_list", Client)

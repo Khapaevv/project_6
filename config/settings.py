@@ -10,7 +10,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", False) == "True"
 
 ALLOWED_HOSTS = ["*"]
@@ -133,8 +132,7 @@ if CACHE_ENABLED:
     }
 
 CRONJOBS = [
-    ("3 20 * * *", "mailing.cron.daily_mailings"),
+    ("53 15 * * *", "mailing.cron.daily_mailings"),
     ("0 12 * * 1", "mailing.cron.weekly_mailings"),
     ("0 12 1 * *", "mailing.cron.monthly_mailings"),
-    # ('* * * * *', 'django.core.management.call_command', ['start_mailing']),
 ]
